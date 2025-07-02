@@ -11,6 +11,6 @@ RUN mkdir -p /opt/ml/model
 # Copy your custom serve script
 COPY serve /opt/serve
 RUN chmod +x /opt/serve
-
+EXPOSE 8080
 # Set proper entrypoint
 ENTRYPOINT ["/opt/serve"]

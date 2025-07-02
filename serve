@@ -1,26 +1,7 @@
 #!/bin/bash
-
 ls /opt
 ls /opt/ml
 ls /opt/ml/model
-
 # Start Triton on SageMaker's expected port (8080)
-tritonserver --model-repository=/opt/ml/model --http-port=8080 --grpc-port=9001 &
+tritonserver --model-repository=/opt/ml/model --http-port=8080
 
-# SageMaker-compatible health check
-HEALTH_CHECK_PORT=8080
-SAGEMAKER_PORT=8080
-
-# Wait for Triton to be ready
-TIMEOUT=300  # 5 minutes
-while [[ "$(curl -s -o /dev/null -w '%{http_code}' localhost:${HEALTH_CHECK_PORT}/v2/health/ready)" != "200" ]]; do
-  if [ $TIMEOUT -le 0 ]; then
-    echo "Timeout waiting for Triton to start"
-    exit 1
-  fi
-  sleep 5
-  TIMEOUT=$((TIMEOUT-5))
-done
-
-# Keep container running
-wait

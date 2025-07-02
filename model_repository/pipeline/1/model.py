@@ -9,7 +9,7 @@ import cv2
 
 class TritonPythonModel:
     def initialize(self, args):
-        self.client = httpclient.InferenceServerClient(url="localhost:8000")
+        self.client = httpclient.InferenceServerClient(url="localhost:8080")
 
     def set_input(self,input_name, obj, datatype="FP32"):
         input_holder = httpclient.InferInput(input_name, obj.shape, datatype=datatype)
@@ -120,4 +120,4 @@ class TritonPythonModel:
 # print(response.as_numpy("mrz").tolist().decode())
 # print(response.as_numpy("photo").shape)
 
-# curl -s -X POST http://localhost:8000/v2/models/pipeline/infer -H "Content-Type: application/json" -d @input.json | jq -r '.outputs[] | select(.name=="mrz") | .data[0]'
+# curl -s -X POST http://localhost:8080/v2/models/pipeline/infer -H "Content-Type: application/json" -d @input.json | jq -r '.outputs[] | select(.name=="mrz") | .data[0]'
