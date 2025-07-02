@@ -1,0 +1,19 @@
+name: "ocr_postprocess"
+backend: "python"
+max_batch_size: 0
+
+input [
+  {
+    name: "predictions"
+    data_type: TYPE_FP32
+    dims: [-1,187 ]
+  }
+]
+
+output [
+  {
+    name: "output_text"
+    data_type: TYPE_STRING
+    dims: [-1]
+  }
+]
